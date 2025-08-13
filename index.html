@@ -133,7 +133,7 @@
             background: white;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            overflow: hidden;
+            overflow-x: auto; /* Allow horizontal scrolling */
         }
         
         .performance-table {
@@ -318,30 +318,14 @@
                 white-space: nowrap;
             }
 
-            .performance-table thead, .performance-table tbody, .performance-table th, .performance-table td, .performance-table tr {
-                display: block;
+            .performance-table {
+                width: 100%;
+                min-width: 700px; /* Set a minimum width to force horizontal scrolling */
+                display: table;
             }
 
             .performance-table th, .performance-table td {
-                width: auto; /* Allow content to dictate width */
-                text-align: left;
-                padding: 8px;
-                border-right: none;
-            }
-
-            .performance-table tr {
-                margin-bottom: 10px;
-                border: 1px solid #e2e8f0;
-                border-radius: 8px;
-                overflow: hidden;
-            }
-
-            .performance-table td:before {
-                content: attr(data-label);
-                font-weight: bold;
-                display: inline-block;
-                width: 100px; /* Label width */
-                margin-right: 10px;
+                white-space: nowrap;
             }
         }
     </style>
