@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JRS Tutorials - Student Performance</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #4a148c, #7b1fa2);
+            color: white;
+            padding: 15px 0;
+        }
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo-img {
+            background: linear-gradient(45deg, #ff4444, #ffaa00);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        
+        .form-info {
+            background: rgba(255,255,255,0.1);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+        }
+        
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 70px;
+            width: 240px;
+            height: calc(100vh - 70px);
+            background: #2d3748;
+            color: white;
+            overflow-y: auto;
+        }
+        
+        .sidebar ul {
+            list-style: none;
+        }
+        
+        .sidebar li {
+            border-bottom: 1px solid #4a5568;
+        }
+        
+        .sidebar a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            padding: 15px 20px;
+            transition: background 0.3s;
+        }
+        
+        .sidebar a:hover {
+            background: #4a5568;
+        }
+        
+        .sidebar a.active {
+            background: #805ad5;
+        }
+        
+        .main-content {
+            margin-left: 240px;
+            padding: 30px;
+            min-height: calc(100vh - 70px);
+        }
+        
+        .controls {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        
+        .controls select, .controls input {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        
+        .controls button {
+            background: #805ad5;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        .controls button:hover {
+            background: #6b46c1;
+        }
+        
+        .table-container {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .performance-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+        }
+        
+        .performance-table th {
+            background: #805ad5;
+            color: white;
+            padding: 12px 8px;
+            text-align: center;
+            font-weight: bold;
+            border-right: 1px solid #6b46c1;
+        }
+        
+        .performance-table td {
+            padding: 10px 8px;
+            text-align: center;
+            border-bottom: 1px solid #e2e8f0;
+            border-right: 1px solid #e2e8f0;
+        }
+        
+        .performance-table tr:hover {
+            background: #f7fafc;
+        }
+        
+        .performance-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        
+        .performance-table tr:nth-child(even):hover {
+            background: #e2e8f0;
+        }
+        
+        .banner {
+            background: linear-gradient(135deg, #8b0000, #dc143c);
+            color: white;
+            text-align: center;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        
+        .results-section {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-top: 30px;
+            text-align: center;
+        }
+        
+        .results-header {
+            font-size: 24px;
+            color: #2d3748;
+            margin-bottom: 10px;
+        }
+        
+        .results-subheader {
+            font-size: 18px;
+            color: #4a5568;
+            margin-bottom: 30px;
+        }
+        
+        .result-links {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .result-link {
+            color: #805ad5;
+            text-decoration: none;
+            font-size: 16px;
+            padding: 10px;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+        
+        .result-link:hover {
+            background: #f0f0f0;
+        }
+        
+        .enquiry-form {
+            max-width: 400px;
+            margin: 0 auto;
+            text-align: left;
+        }
+        
+        .enquiry-form h3 {
+            text-align: center;
+            color: #2d3748;
+            margin-bottom: 20px;
+            font-size: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        
+        .submit-btn {
+            width: 100%;
+            background: #805ad5;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .submit-btn:hover {
+            background: #6b46c1;
+        }
+        
+        .page {
+            display: none;
+        }
+        
+        .page.active {
+            display: block;
+        }
+        
+        .exam-code {
+            font-size: 11px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <div class="logo">
+                <div class="logo-img">JRS TUTORIALS</div>
+            </div>
+            <div class="form-info">Form No: 90426</div>
+        </div>
+    </div>
+    
+    <div class="sidebar">
+        <ul>
+            <li><a href="#" onclick="showPage('dashboard')" class="active">📊 Dashboard</a></li>
+            <li><a href="#" onclick="showPage('student-profile')">👤 Student Profile</a></li>
+            <li><a href="#" onclick="showPage('fee-status')">💰 Student Fee Status</a></li>
+            <li><a href="#" onclick="showPage('video-lectures')">🎥 Recorded Video Lectures</a></li>
+            <li><a href="#" onclick="showPage('study-material')">📚 Download Study Material</a></li>
+            <li><a href="#" onclick="showPage('attendance')">📅 Student Attendance</a></li>
+            <li><a href="#" onclick="showPage('performance')" id="performance-link">📈 Student Performance</a></li>
+            <li><a href="#" onclick="showPage('notices')">📢 Notice Page</a></li>
+            <li><a href="#" onclick="showPage('exams')">📝 Upcoming Exams Date</a></li>
+            <li><a href="#" onclick="showPage('results')">🏆 Results</a></li>
+        </ul>
+    </div>
+    
+    <div class="main-content">
+        <div class="banner">
+            🎯 JOIN RELY SUCCEED
+        </div>
+        
+        <!-- Dashboard Page -->
+        <div id="dashboard" class="page active">
+            <h2>Welcome to Student Dashboard</h2>
+            <p>Select a section from the sidebar to view your academic information.</p>
+            
+            <div class="results-section">
+                <div class="results-header">Join All India Test Series for NEET-UG-2026</div>
+                <div class="results-subheader">Click here to download test schedule and syllabus.</div>
+                
+                <div class="result-links">
+                    <a href="#" class="result-link" onclick="showPage('results')">CLICK HERE TO SEE THE RESULTS: JEE Advanced 2025 Varanasi</a>
+                    <a href="#" class="result-link" onclick="showPage('results')">CLICK HERE TO SEE THE RESULTS: JEE Main Final 2025 Varanasi</a>
+                    <a href="#" class="result-link" onclick="showPage('results')">CLICK HERE TO SEE THE RESULTS: NEET (UG) - 2025</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Student Performance Page -->
+        <div id="performance" class="page">
+            <div class="controls">
+                <div>
+                    <label>Session:</label>
+                    <select>
+                        <option>2025-2026</option>
+                        <option>2024-2025</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Form Number:</label>
+                    <input type="text" value="90426" readonly>
+                </div>
+                <button onclick="refreshResults()">Show</button>
+            </div>
+            
+            <div class="table-container">
+                <table class="performance-table">
+                    <thead>
+                        <tr>
+                            <th>Exam Code</th>
+                            <th>Date</th>
+                            <th>Stream</th>
+                            <th>Course</th>
+                            <th>Batch</th>
+                            <th>Subject</th>
+                            <th>Topic</th>
+                            <th>MAx.Marks</th>
+                            <th>Highest</th>
+                            <th>Secured</th>
+                            <th>Rank</th>
+                            <th>App.Students</th>
+                            <th>Percent(%)</th>
+                            <th>Percentile</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="exam-code">IT-T25/03/XII-IIT/PH/TP/03</td>
+                            <td>18-05-2025</td>
+                            <td>IIT</td>
+                            <td>XII</td>
+                            <td>BRILLIANT-2</td>
+                            <td>PHYSICS</td>
+                            <td>PHYSICS TEST PAPER</td>
+                            <td>180</td>
+                            <td>136</td>
+                            <td>88</td>
+                            <td>65</td>
+                            <td>450</td>
+                            <td>48.89</td>
+                            <td>79.00</td>
+                        </tr>
+                        <tr>
+                            <td class="exam-code">IT-T25/04/XII-IIT-ADV/COM/PT-I</td>
+                            <td>18-05-2025</td>
+                            <td>IIT</td>
+                            <td>XII</td>
+                            <td>BRILLIANT-2</td>
+                            <td>COMBINED</td>
+                            <td>PART TEST - I</td>
+                            <td>300</td>
+                            <td>207</td>
+                            <td>78</td>
+                            <td>170</td>
+                            <td>460</td>
+                            <td>26.00</td>
+                            <td>39.00</td>
+                        </tr>
+                        <tr>
+                            <td class="exam-code">IT-T25/08/XII-IIT-ADV/COM/PT-II</td>
+                            <td>22-06-2025</td>
+                            <td>IIT</td>
+                            <td>XII</td>
+                            <td>BRILLIANT-2</td>
+                            <td>COMBINED</td>
+                            <td>PART TEST - II</td>
+                            <td>180</td>
+                            <td>113</td>
+                            <td>72</td>
+                            <td>167</td>
+                            <td>372</td>
+                            <td>40.00</td>
+                            <td>41.00</td>
+                        </tr>
+                        <tr>
+                            <td class="exam-code">IT-T25/09/XII-IIT/M/TP/02</td>
+                            <td>26-06-2025</td>
+                            <td>IIT</td>
+                            <td>XII</td>
+                            <td>BRILLIANT-2</td>
+                            <td>MATHS</td>
+                            <td>JEE MAINS PART TEST - 3</td>
+                            <td>300</td>
+                            <td>275</td>
+                            <td>164</td>
+                            <td>98</td>
+                            <td>413</td>
+                            <td>54.67</td>
+                            <td>88.00</td>
+                        </tr>
+                        <tr>
+                            <td class="exam-code">IT-T25/08/XII-IIT-ADV/COM/PT/01</td>
+                            <td>22-06-2025</td>
+                            <td>IIT</td>
+                            <td>XII</td>
+                            <td>BRILLIANT-2</td>
+                            <td>COMBINED</td>
+                            <td>JEE MAINS PART TEST - 4</td>
+                            <td>300</td>
+                            <td>265</td>
+                            <td>141</td>
+                            <td>155</td>
+                            <td>389</td>
+                            <td>47.00</td>
+                            <td>75.00</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <!-- Results Page -->
+        <div id="results" class="page">
+            <div class="results-section">
+                <div style="background: #00a8e6; color: white; padding: 10px; border-radius: 5px; display: inline-block; margin-bottom: 20px;">RESULTS</div>
+                <div class="results-header">49 STUDENTS</div>
+                <div class="results-subheader">SECURED RANK WITHIN TOP 20000</div>
+                
+                <div style="background: linear-gradient(135deg, #f39c12, #e67e22); color: white; padding: 20px; border-radius: 10px; margin: 20px 0;">
+                    <h2>JRS TUTORIALS</h2>
+                    <p>LEGACY OF JRS CONTINUES</p>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-top: 20px;">
+                        <div style="background: rgba(255,255,255,0.1); padding: 10px; border-radius: 5px;">
+                            <div style="font-size: 24px; font-weight: bold; color: #e74c3c;">1349</div>
+                            <div>AIR (Gen)</div>
+                            <div>Himanshu Mishra</div>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.1); padding: 10px; border-radius: 5px;">
+                            <div style="font-size: 24px; font-weight: bold; color: #e74c3c;">2087</div>
+                            <div>AIR (Gen)</div>
+                            <div>Harshit Singh</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="enquiry-form">
+                    <h3>ENQUIRE NOW</h3>
+                    <div class="form-group">
+                        <input type="text" placeholder="Full Name*" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" placeholder="E-mail ID*" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" placeholder="Mobile No.*" required>
+                    </div>
+                    <button class="submit-btn" onclick="submitEnquiry()">Submit</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Other Pages (Placeholder) -->
+        <div id="student-profile" class="page">
+            <h2>Student Profile</h2>
+            <p>Your profile information will be displayed here.</p>
+        </div>
+        
+        <div id="fee-status" class="page">
+            <h2>Student Fee Status</h2>
+            <p>Your fee payment status and history will be displayed here.</p>
+        </div>
+        
+        <div id="video-lectures" class="page">
+            <h2>Recorded Video Lectures</h2>
+            <p>Access your recorded video lectures here.</p>
+        </div>
+        
+        <div id="study-material" class="page">
+            <h2>Download Study Material</h2>
+            <p>Download your study materials from here.</p>
+        </div>
+        
+        <div id="attendance" class="page">
+            <h2>Student Attendance</h2>
+            <p>Your attendance records will be displayed here.</p>
+        </div>
+        
+        <div id="notices" class="page">
+            <h2>Notice Page</h2>
+            <p>Important notices and announcements will be displayed here.</p>
+        </div>
+        
+        <div id="exams" class="page">
+            <h2>Upcoming Exams Date</h2>
+            <p>Your upcoming exam schedule will be displayed here.</p>
+        </div>
+    </div>
+    
+    <script>
+        function showPage(pageId) {
+            // Hide all pages
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.remove('active'));
+            
+            // Show selected page
+            document.getElementById(pageId).classList.add('active');
+            
+            // Update sidebar active state
+            const links = document.querySelectorAll('.sidebar a');
+            links.forEach(link => link.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+        
+        function refreshResults() {
+            alert('Results refreshed successfully!');
+        }
+        
+        function submitEnquiry() {
+            const inputs = document.querySelectorAll('.enquiry-form input');
+            let isValid = true;
+            
+            inputs.forEach(input => {
+                if (input.hasAttribute('required') && !input.value.trim()) {
+                    isValid = false;
+                    input.style.borderColor = '#e74c3c';
+                } else {
+                    input.style.borderColor = '#ddd';
+                }
+            });
+            
+            if (isValid) {
+                alert('Thank you for your enquiry! We will contact you soon.');
+                inputs.forEach(input => input.value = '');
+            } else {
+                alert('Please fill all required fields.');
+            }
+        }
+        
+        // Highlight performance link when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            const performanceLink = document.getElementById('performance-link');
+            performanceLink.style.background = '#ff6b6b';
+            performanceLink.style.color = 'white';
+        });
+    </script>
+</body>
+</html>
