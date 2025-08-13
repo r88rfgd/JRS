@@ -17,7 +17,7 @@
         }
         
         .header {
-            background: linear-gradient(135deg, #4a148c, #7b1fa2);
+            background-color: #e74c3c; /* Red shade header */
             color: white;
             padding: 15px 0;
         }
@@ -38,7 +38,7 @@
         }
         
         .logo-img {
-            background: linear-gradient(45deg, #ff4444, #ffaa00);
+            background-color: #c0392b; /* Darker red logo background */
             color: white;
             padding: 8px 12px;
             border-radius: 5px;
@@ -59,9 +59,10 @@
             top: 70px;
             width: 240px;
             height: calc(100vh - 70px);
-            background: #2d3748;
-            color: white;
+            background-color: white; /* Changed to white */
+            color: black; /* Changed text color to black for contrast */
             overflow-y: auto;
+            z-index: 1000; /* Ensure sidebar is above other content on mobile */
         }
         
         .sidebar ul {
@@ -74,24 +75,26 @@
         
         .sidebar a {
             display: block;
-            color: white;
+            color: black; /* Changed to black */
             text-decoration: none;
             padding: 15px 20px;
             transition: background 0.3s;
         }
         
         .sidebar a:hover {
-            background: #4a5568;
+            background: #f0f0f0; /* Light grey hover state */
         }
         
         .sidebar a.active {
-            background: #805ad5;
+            background: #e74c3c; /* Red active state */
+            color: white; /* White text for active state */
         }
         
         .main-content {
             margin-left: 240px;
             padding: 30px;
             min-height: calc(100vh - 70px);
+            transition: margin-left 0.3s ease; /* Smooth transition for sidebar toggle */
         }
         
         .controls {
@@ -113,7 +116,7 @@
         }
         
         .controls button {
-            background: #805ad5;
+            background-color: #e74c3c; /* Red button color */
             color: white;
             border: none;
             padding: 10px 20px;
@@ -123,7 +126,7 @@
         }
         
         .controls button:hover {
-            background: #6b46c1;
+            background-color: #c0392b; /* Darker red hover state */
         }
         
         .table-container {
@@ -140,12 +143,12 @@
         }
         
         .performance-table th {
-            background: #805ad5;
+            background-color: #3498db; /* Light blue table header */
             color: white;
             padding: 12px 8px;
             text-align: center;
             font-weight: bold;
-            border-right: 1px solid #6b46c1;
+            border-right: 1px solid #2980b9;
         }
         
         .performance-table td {
@@ -168,7 +171,7 @@
         }
         
         .banner {
-            background: linear-gradient(135deg, #8b0000, #dc143c);
+            background-color: #e74c3c; /* Red banner color */
             color: white;
             text-align: center;
             padding: 15px;
@@ -207,7 +210,7 @@
         }
         
         .result-link {
-            color: #805ad5;
+            color: #e74c3c; /* Red link color */
             text-decoration: none;
             font-size: 16px;
             padding: 10px;
@@ -246,7 +249,7 @@
         
         .submit-btn {
             width: 100%;
-            background: #805ad5;
+            background-color: #e74c3c; /* Red button color */
             color: white;
             border: none;
             padding: 12px;
@@ -257,7 +260,7 @@
         }
         
         .submit-btn:hover {
-            background: #6b46c1;
+            background-color: #c0392b; /* Darker red hover state */
         }
         
         .page {
@@ -272,6 +275,75 @@
             font-size: 11px;
             font-weight: bold;
         }
+
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .hamburger-menu {
+                display: block; /* Show hamburger menu on mobile */
+            }
+
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: static;
+                top: auto;
+                left: auto;
+                display: none; /* Hidden by default on mobile */
+            }
+
+            .sidebar.active {
+                display: block; /* Show when toggled */
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding: 15px;
+            }
+
+            .controls {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 10px;
+            }
+
+            .performance-table {
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+
+            .performance-table thead, .performance-table tbody, .performance-table th, .performance-table td, .performance-table tr {
+                display: block;
+            }
+
+            .performance-table th, .performance-table td {
+                width: auto; /* Allow content to dictate width */
+                text-align: left;
+                padding: 8px;
+                border-right: none;
+            }
+
+            .performance-table tr {
+                margin-bottom: 10px;
+                border: 1px solid #e2e8f0;
+                border-radius: 8px;
+                overflow: hidden;
+            }
+
+            .performance-table td:before {
+                content: attr(data-label);
+                font-weight: bold;
+                display: inline-block;
+                width: 100px; /* Label width */
+                margin-right: 10px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -281,6 +353,7 @@
                 <div class="logo-img">JRS TUTORIALS</div>
             </div>
             <div class="form-info">Form No: 90426</div>
+            <div class="hamburger-menu">☰</div> <!-- New hamburger menu icon -->
         </div>
     </div>
     
@@ -385,11 +458,11 @@
                             <td>PART TEST - I</td>
                             <td>300</td>
                             <td>207</td>
-                            <td>78</td>
+                            <td>39.00</td>
                             <td>170</td>
                             <td>460</td>
                             <td>26.00</td>
-                            <td>39.00</td>
+                            <td>78</td>
                         </tr>
                         <tr>
                             <td class="exam-code">IT-T25/08/XII-IIT-ADV/COM/PT-II</td>
@@ -401,11 +474,11 @@
                             <td>PART TEST - II</td>
                             <td>180</td>
                             <td>113</td>
-                            <td>72</td>
+                            <td>41.00</td>
                             <td>167</td>
                             <td>372</td>
                             <td>40.00</td>
-                            <td>41.00</td>
+                            <td>72</td>
                         </tr>
                         <tr>
                             <td class="exam-code">IT-T25/09/XII-IIT/M/TP/02</td>
@@ -413,7 +486,7 @@
                             <td>IIT</td>
                             <td>XII</td>
                             <td>BRILLIANT-2</td>
-                            <td>MATHS</td>
+                            <td>COMBINED</td>
                             <td>JEE MAINS PART TEST - 3</td>
                             <td>300</td>
                             <td>275</td>
@@ -424,7 +497,7 @@
                             <td>88.00</td>
                         </tr>
                         <tr>
-                            <td class="exam-code">IT-T25/08/XII-IIT-ADV/COM/PT/01</td>
+                            <td class="exam-code">IT-T25/08/XII-IIT-MAINS/COM/PT/01</td>
                             <td>22-06-2025</td>
                             <td>IIT</td>
                             <td>XII</td>
@@ -442,26 +515,28 @@
                     </tbody>
                 </table>
             </div>
+            <p><strong>Name:</strong> Abhinav kumar singh b-2 12 iit</p>
+            <p><strong>ID No:</strong> 112391852</p>
         </div>
         
         <!-- Results Page -->
         <div id="results" class="page">
             <div class="results-section">
-                <div style="background: #00a8e6; color: white; padding: 10px; border-radius: 5px; display: inline-block; margin-bottom: 20px;">RESULTS</div>
+                <div style="background: #e74c3c; color: white; padding: 10px; border-radius: 5px; display: inline-block; margin-bottom: 20px;">RESULTS</div>
                 <div class="results-header">49 STUDENTS</div>
                 <div class="results-subheader">SECURED RANK WITHIN TOP 20000</div>
                 
-                <div style="background: linear-gradient(135deg, #f39c12, #e67e22); color: white; padding: 20px; border-radius: 10px; margin: 20px 0;">
+                <div style="background: #c0392b; color: white; padding: 20px; border-radius: 10px; margin: 20px 0;">
                     <h2>JRS TUTORIALS</h2>
                     <p>LEGACY OF JRS CONTINUES</p>
                     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-top: 20px;">
                         <div style="background: rgba(255,255,255,0.1); padding: 10px; border-radius: 5px;">
-                            <div style="font-size: 24px; font-weight: bold; color: #e74c3c;">1349</div>
+                            <div style="font-size: 24px; font-weight: bold; color: #fff;">1349</div>
                             <div>AIR (Gen)</div>
                             <div>Himanshu Mishra</div>
                         </div>
                         <div style="background: rgba(255,255,255,0.1); padding: 10px; border-radius: 5px;">
-                            <div style="font-size: 24px; font-weight: bold; color: #e74c3c;">2087</div>
+                            <div style="font-size: 24px; font-weight: bold; color: #fff;">2087</div>
                             <div>AIR (Gen)</div>
                             <div>Harshit Singh</div>
                         </div>
@@ -482,12 +557,6 @@
                     <button class="submit-btn" onclick="submitEnquiry()">Submit</button>
                 </div>
             </div>
-        </div>
-        
-        <!-- Other Pages (Placeholder) -->
-        <div id="student-profile" class="page">
-            <h2>Student Profile</h2>
-            <p>Your profile information will be displayed here.</p>
         </div>
         
         <div id="fee-status" class="page">
@@ -518,6 +587,13 @@
         <div id="exams" class="page">
             <h2>Upcoming Exams Date</h2>
             <p>Your upcoming exam schedule will be displayed here.</p>
+        </div>
+
+        <!-- Student Profile moved here -->
+        <div id="student-profile" class="page">
+            <h2>Student Profile</h2>
+            <p><strong>Name:</strong> Abhinav kumar singh b-2 12 iit</p>
+            <p><strong>ID No:</strong> 112391852</p>
         </div>
     </div>
     
@@ -564,8 +640,36 @@
         // Highlight performance link when page loads
         document.addEventListener('DOMContentLoaded', function() {
             const performanceLink = document.getElementById('performance-link');
-            performanceLink.style.background = '#ff6b6b';
+            performanceLink.style.background = '#e74c3c'; /* Red active state for performance link */
             performanceLink.style.color = 'white';
+            
+            // Ensure other links are black when sidebar is white
+            const links = document.querySelectorAll('.sidebar a');
+            links.forEach(link => {
+                if (!link.classList.contains('active')) {
+                    link.style.color = 'black';
+                }
+            });
+
+            // Toggle sidebar on mobile
+            const hamburgerMenu = document.querySelector('.hamburger-menu');
+            const sidebar = document.querySelector('.sidebar');
+            if (hamburgerMenu && sidebar) {
+                hamburgerMenu.addEventListener('click', function() {
+                    sidebar.classList.toggle('active');
+                });
+            }
+
+            // Add data-label to table cells for mobile view
+            const table = document.querySelector('.performance-table');
+            if (table) {
+                const headers = Array.from(table.querySelectorAll('th')).map(th => th.textContent);
+                table.querySelectorAll('tr').forEach(row => {
+                    row.querySelectorAll('td').forEach((cell, index) => {
+                        cell.setAttribute('data-label', headers[index]);
+                    });
+                });
+            }
         });
     </script>
 </body>
